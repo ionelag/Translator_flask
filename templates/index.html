@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image to Text Converter</title>
+    <style>
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .form {
+            display: inline-block; /* Ensure forms appear side by side */
+        }
+
+        .form-left {
+            float: left; /* Align the first form to the left */
+        }
+
+        .form-right {
+            float: right; /* Align the second form to the right */
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #1E90FF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px; /* Add margin between buttons */
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="/static/tool-box-image.svg" alt="Image Logo">
+        <div class="form form-left">
+            <form action="/upload_image" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="file" >
+                <label for="file" class="btn">Convert image to text</label>
+                <input type="submit" value="Upload">
+            </form>
+        </div>
+        <div class="form form-right">
+            <form action="/upload_audio" method="post" enctype="multipart/form-data">
+                <input type="file" name="audio" id="audio" >
+                <label for="audio" class="btn">Convert audio to text</label>
+                <input type="submit" value="Upload">
+            </form>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="container">
+        <ul>
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% endwith %}
+</body>
+</html>
